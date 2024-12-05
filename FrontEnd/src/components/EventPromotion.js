@@ -134,39 +134,38 @@ function EventPromotion() {
   };
 
   // Handle image download
-const handleDownload = (imageUrl) => {
-  return new Promise((resolve, reject) => {
+  const handleDownload = (imageUrl) => {
+    return new Promise((resolve, reject) => {
+      try {
+        const a = document.createElement('a');
+        a.href = imageUrl;
+        a.download = imageUrl.split('/').pop(); // Set download file name
+        document.body.appendChild(a); // Append to body for the click event
+        a.click(); // Trigger download
+        document.body.removeChild(a); // Clean up
+  
+        // Since download is immediate, resolve the promise
+        resolve();
+      } catch (error) {
+        reject(error); // Reject in case of an error
+      }
+    });
+  };
+  
+  const handleInstagram = async (imageUrl) => {
     try {
-      const anchor = document.createElement('a');
-      anchor.href = imageUrl;
-      anchor.download = imageUrl.split('/').pop(); // Extract file name for download
-      document.body.appendChild(anchor); // Append to body to make it clickable
-      anchor.click(); // Trigger the download
-      document.body.removeChild(anchor); // Clean up
-      
-      // Resolve the promise once download is triggered
-      resolve();
+      // Wait for the download to complete
+      await handleDownload(imageUrl);
+  
+      // After download, open Instagram's story camera page
+      const instagramUrl = `intent://story-camera#Intent;package=com.instagram.android;scheme=instagram;end`;
+      window.location.href = instagramUrl;
     } catch (error) {
-      reject(error); // Reject in case of any errors
+      console.error('Error during Instagram action:', error);
+      alert('An error occurred while downloading the image.');
     }
-  });
-};
-
-// Handle Instagram action
-const handleInstagram = async (imageUrl) => {
-  try {
-    // Wait for the download to complete
-    await handleDownload(imageUrl);
-
-    // Redirect to Instagram's story camera intent with the downloaded image
-    const instagramUrl = `intent://story-camera#Intent;package=com.instagram.android;scheme=instagram;end`;
-    window.location.href = instagramUrl;
-  } catch (error) {
-    console.error('Error during Instagram action:', error);
-    alert('An error occurred while processing the image for Instagram.');
-  }
-};
-
+  };
+  
 
   return (
     <div className="container mt-4">
