@@ -145,7 +145,8 @@ function EventPromotion() {
   const handleInstagram = (imageUrl) => {
     // Download the image and open Instagram's Story page
     handleDownload(imageUrl);
-    window.open('https://www.instagram.com/stories/', '_blank');
+    const instagramUrl = `intent://story-camera#Intent;package=com.instagram.android;scheme=instagram;end`;
+    window.location.href = instagramUrl;
   };
 
   return (
