@@ -7,7 +7,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://event-management-frontend-zeta.vercel.app/',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept'
 }));
