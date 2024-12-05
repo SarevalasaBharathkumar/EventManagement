@@ -35,3 +35,6 @@ frontend/logs/
 # Environment variables
 backend/.env
 frontend/.env
+
+node_modules*
+.env*
