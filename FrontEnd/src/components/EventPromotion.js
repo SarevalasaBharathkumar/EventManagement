@@ -134,20 +134,39 @@ function EventPromotion() {
   };
 
   // Handle image download
-  const handleDownload = (imageUrl) => {
-    const a = document.createElement('a');
-    a.href = imageUrl;
-    a.download = imageUrl.split('/').pop(); // Download file name
-    a.click();
-  };
+const handleDownload = (imageUrl) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const anchor = document.createElement('a');
+      anchor.href = imageUrl;
+      anchor.download = imageUrl.split('/').pop(); // Extract file name for download
+      document.body.appendChild(anchor); // Append to body to make it clickable
+      anchor.click(); // Trigger the download
+      document.body.removeChild(anchor); // Clean up
+      
+      // Resolve the promise once download is triggered
+      resolve();
+    } catch (error) {
+      reject(error); // Reject in case of any errors
+    }
+  });
+};
 
-  // Handle Instagram action
-  const handleInstagram = (imageUrl) => {
-    // Download the image and open Instagram's Story page
-    handleDownload(imageUrl);
+// Handle Instagram action
+const handleInstagram = async (imageUrl) => {
+  try {
+    // Wait for the download to complete
+    await handleDownload(imageUrl);
+
+    // Redirect to Instagram's story camera intent with the downloaded image
     const instagramUrl = `intent://story-camera#Intent;package=com.instagram.android;scheme=instagram;end`;
     window.location.href = instagramUrl;
-  };
+  } catch (error) {
+    console.error('Error during Instagram action:', error);
+    alert('An error occurred while processing the image for Instagram.');
+  }
+};
+
 
   return (
     <div className="container mt-4">
