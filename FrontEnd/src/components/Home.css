@@ -1,0 +1,209 @@
+/* src/components/Home.css */
+
+  
+/*.container {
+  display: flex;
+  height: 100vh;
+}*/
+
+
+
+
+.sidebar {
+  width: 250px; /* Initial width of the sidebar */
+  flex: 0 0 auto; /* Sidebar should not grow or shrink */
+  background-color: #f8f9fa;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease-in-out;
+  position: fixed; /* Fix the sidebar position */
+  top: 0; /* Position it at the top of the viewport */
+  bottom: 0; /* Extend the sidebar to the bottom of the viewport */
+  overflow-x: hidden;
+  overflow-y:auto ;
+  scrollbar-width: none;
+  left: 0;
+}
+
+.sidebar.closed {
+  width: 60px; /* Width when sidebar is collapsed */
+}
+
+.main-content {
+  padding: 20px;
+  background-color:none;
+  overflow: auto; /* Allow content to scroll if necessary */
+  transition: margin-left 0.3s ease-in-out; /* Transition for margin change */
+  height: 100vh;
+  width: 100%;
+}
+
+.main-content.closed {
+  margin-left: 30% /* Adjust margin when sidebar is collapsed */
+}
+  
+  .sidebar-header {
+    padding: 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position:sticky;
+    top:0;
+    left:0;
+    z-index:1;
+  }
+  
+  .toggle-btn {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    position: fixed;
+  }
+  
+  .line {
+    width: 20px; /* Width of each line */
+    height: 2px; /* Thickness of each line */
+    background-color: #fff; /* Line color */
+    margin: 3px 0; /* Space between lines */
+  }
+  
+  .nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .nav ul li {
+    padding: 15px 10px;
+  }
+  
+  .nav-item {
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .nav-item.active {
+    color: #00ff00;
+    border-radius: 4px;
+  }
+  
+  .icon {
+    font-size: 24px; /* Larger icon size */
+    margin-right: 10px; /* Space between icon and text */
+    font-weight: bold; /* Make icon bold */
+    position: relative; /* For positioning the glow effect */
+    transition: color 0.3s, text-shadow 0.3s;
+  }
+  
+  .icon.active {
+    color: #00ff00; /* Neon green color */
+    text-shadow: 
+      0 0 5px #00ff00, 
+      0 0 10px #00ff00, 
+      0 0 15px #00ff00, 
+  }
+  
+  .icon.no-glow {
+    text-shadow: none; /* No glow effect */
+  }
+  
+  .text {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .hidden {
+    display: none; /* Hide text when sidebar is closed */
+  }
+  
+  
+  .header {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+h1{
+  width: fit-content;
+  margin: auto;
+  font-size: large;
+}
+  
+  .content {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: scroll;
+  }
+ 
+  .login-modal .modal-dialog {
+  position: auto fixed;
+}
+
+.sidebar.closed .nav .nav-text {
+  display: none;
+}
+
+.sidebar .nav button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sidebar .nav button .fas {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.sidebar .nav button .nav-text {
+  flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+  .sidebar.closed {
+    width: 30px; /* Width when sidebar is collapsed */
+  }
+  .icon {
+    font-size: 14px; /* Larger icon size */
+  }
+  .nav ul li {
+    padding: 15px 0px;
+  }
+  .header h1 {
+    font-size: small;
+    font-weight:1000;
+  }
+  section.content{
+    margin-left: 5%;
+    font-size: 15px;
+    width: 100%;
+  }
+  
+  header.header{
+    margin-left: 5%;
+    width: 100%;
+  }
+}

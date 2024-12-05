@@ -1,0 +1,28 @@
+/* AdminVolunteer.css */
+
+.table-container {
+  margin-bottom: 30px;
+}
+
+.table-container h2 {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.volunteer-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.volunteer-table th,
+.volunteer-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.volunteer-table th {
+  text-align: center;
+  background-color: #f4f4f4;
+}

@@ -1,0 +1,24 @@
+div.feed_heading{
+  font-size: 2em;
+  width: fit-content;
+  margin: auto;
+}
+.event-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribute space between elements */
+  border: 1px solid #ccc; /* Example border for visualization */
+  padding: 10px; /* Example padding for visualization */
+}
+
+
+.event-card .card-img-top {
+  height: 200px; /* Set a fixed height for the image */
+  object-fit: cover; /* Ensure the image covers the entire container */
+}
+@media (max-width: 768px){
+  div.feed_heading{
+    font-size: 15px;
+    font-weight: bold;
+  }
+}

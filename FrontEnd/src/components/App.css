@@ -1,0 +1,40 @@
+/* App.css */
+body {
+  background-color: #f5f7f8;
+}
+
+h1 {
+  color: #343a40;
+}
+
+button, .btn {
+  border-radius: 25px;
+}
+
+.card {
+  border-radius: 15px;
+}
+
+.chat-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chat-icon:hover {
+  background-color: #0056b3;
+}
+
+.modal-header, .modal-footer {
+  border: none;
+}
+
+.form-control {
+  border-radius: 15px;
+}
