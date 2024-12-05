@@ -5,7 +5,7 @@ function AdminVolunteer() {
   const [eventVolunteerData, setEventVolunteerData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/volunteers/events')
+    fetch('https://eventmanagement-1-y0a7.onrender.com/api/volunteers/events')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

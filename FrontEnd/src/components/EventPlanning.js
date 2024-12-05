@@ -31,7 +31,7 @@ const EventPlanning = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/events/getEvents');
+      const response = await axios.get('https://eventmanagement-1-y0a7.onrender.com/api/events/getEvents');
       setEvents(response.data);
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -66,7 +66,7 @@ const EventPlanning = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/api/events/createEvent', newEvent);
+      const response = await axios.post('https://eventmanagement-1-y0a7.onrender.com/api/events/createEvent', newEvent);
       setEvents([...events, response.data.event]);
       resetEventForm();
     } catch (error) {
@@ -86,7 +86,7 @@ const EventPlanning = () => {
 
   const handleDeleteEvent = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/events/deleteEvent/${id}`);
+      await axios.delete(`https://eventmanagement-1-y0a7.onrender.com/api/events/deleteEvent/${id}`);
       setEvents(events.filter(event => event._id !== id));
     } catch (error) {
       console.error('Error deleting event:', error);
@@ -115,7 +115,7 @@ const EventPlanning = () => {
     });
 
     try {
-      await axios.put(`http://localhost:5000/api/events/updateEvent/${updatedEvents[eventIndex]._id}`, {
+      await axios.put(`https://eventmanagement-1-y0a7.onrender.com/api/events/updateEvent/${updatedEvents[eventIndex]._id}`, {
         eventPrograms: updatedEvents[eventIndex].eventPrograms
       });
       setEvents(updatedEvents);

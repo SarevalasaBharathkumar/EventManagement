@@ -23,7 +23,7 @@ function EventPromotion() {
 
   // Fetch event data and previously uploaded images
   useEffect(() => {
-    fetch('http://localhost:5000/api/volunteers/events')
+    fetch('https://eventmanagement-1-y0a7.onrender.com/api/volunteers/events')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -43,7 +43,7 @@ function EventPromotion() {
 
   // Fetch uploaded images for a specific event
   const fetchUploadedImages = (eventId) => {
-    fetch(`http://localhost:5000/api/images/${eventId}/uploaded-images`)
+    fetch(`https://eventmanagement-1-y0a7.onrender.com/api/images/${eventId}/uploaded-images`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch uploaded images');
@@ -103,7 +103,7 @@ function EventPromotion() {
       images: files.map((file) => ({ base64: file.base64 })),
     };
 
-    fetch(`http://localhost:5000/api/images/${eventId}/upload-images`, {
+    fetch(`https://eventmanagement-1-y0a7.onrender.com/api/images/${eventId}/upload-images`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

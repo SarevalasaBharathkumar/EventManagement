@@ -37,7 +37,7 @@ function Login({ show, handleClose }) {
   const handleSubmitLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/loginUser', {
+      const response = await axios.post('https://eventmanagement-1-y0a7.onrender.com/api/loginUser', {
         email,
         password,
       });
@@ -60,7 +60,7 @@ function Login({ show, handleClose }) {
       return;
     }
     try {
-      await axios.post('http://localhost:5000/api/signup/createuser', {
+      await axios.post('https://eventmanagement-1-y0a7.onrender.com/api/signup/createuser', {
         email,
         password,
         userType,
@@ -81,7 +81,7 @@ function Login({ show, handleClose }) {
     console.log(storedEmail);
     console.log(otp);
     try {
-      await axios.post('http://localhost:5000/api/signup/verify', {
+      await axios.post('https://eventmanagement-1-y0a7.onrender.com/api/signup/verify', {
         email: storedEmail,
         otp
       });

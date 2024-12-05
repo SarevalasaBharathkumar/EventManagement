@@ -16,7 +16,7 @@ const FeedbackAnalytics = () => {
 
   const fetchCompletedEvents = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/feedback/completedEvents');
+      const response = await axios.get('https://eventmanagement-1-y0a7.onrender.com/api/feedback/completedEvents');
       const { completedEvents } = response.data;
 
       const userData = JSON.parse(localStorage.getItem('userData'));
@@ -25,7 +25,7 @@ const FeedbackAnalytics = () => {
       const eventsWithFeedbackStatus = await Promise.all(
         completedEvents.map(async (event) => {
           try {
-            const feedbackResponse = await axios.get(`http://localhost:5000/api/feedback/checkFeedback/${event._id}/${email}`);
+            const feedbackResponse = await axios.get(`https://eventmanagement-1-y0a7.onrender.com/api/feedback/checkFeedback/${event._id}/${email}`);
             const feedbackExists = feedbackResponse.data.feedbackExists;
             return {
               ...event,
@@ -67,7 +67,7 @@ const FeedbackAnalytics = () => {
       text: textFeedback,
     };
     try {
-      await axios.post('http://localhost:5000/api/feedback/submitFeedback', newFeedback);
+      await axios.post('https://eventmanagement-1-y0a7.onrender.com/api/feedback/submitFeedback', newFeedback);
       alert('Feedback submitted successfully');
       setShowFeedbackForm(false);
       resetFeedbackForm();
