@@ -5,7 +5,7 @@ import { firebaseConfig } from './firebaseConfig';
 
 const sendTokenToServer = async (token) => {
   try {
-    await fetch('http://localhost:5000/api/events/saveToken', {
+    await fetch('https://eventmanagement-1-y0a7.onrender.com/api/events/saveToken', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),
@@ -36,7 +36,7 @@ export const getToken = async () => {
       if (permission === 'granted') {
         console.log('Notification permission granted.');
 
-        const token = await getFirebaseToken(messaging, { vapidKey: process.env.REACT_APP_FIREBASE_API_KEY });
+        const token = await getFirebaseToken(messaging, { vapidKey: process.env.REACT_APP_FIREBASE_VAPIDKEY });
         if (token) {
           console.log('FCM Token:', token);
           localStorage.setItem('fcmToken', token);

@@ -68,7 +68,7 @@ function Home() {
   };
 
   return (
-    <div className="container">
+    <div className="Homecontainer">
       <aside className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
         <div className="sidebar-header">
           <button className="toggle-btn" onClick={toggleSidebar}>
