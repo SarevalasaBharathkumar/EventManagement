@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './AdminVolunteer.css';
+import './EventPromotion.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function EventPromotion() {
