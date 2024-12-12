@@ -13,8 +13,8 @@ const ResourceManagement = () => {
         try {
             const [eventsRes, requestsRes, handRaisesRes] = await Promise.all([
                 fetch('https://eventmanagement-1-y0a7.onrender.com/api/events/getevents'),
-                fetch('http://localhost:5000/api/resources/getrequests'),
-                fetch('http://localhost:5000/api/resources/gethandraises'),
+                fetch('https://eventmanagement-1-y0a7.onrender.com/api/resources/getrequests'),
+                fetch('https://eventmanagement-1-y0a7.onrender.com/api/resources/gethandraises'),
             ]);
 
             if (!eventsRes.ok) throw new Error('Failed to fetch events');
@@ -57,7 +57,7 @@ const ResourceManagement = () => {
         if (!resourceName || !resourceCount) return;
 
         try {
-            const response = await fetch('http://localhost:5000/api/resources/saverequest', {
+            const response = await fetch('https://eventmanagement-1-y0a7.onrender.com/api/resources/saverequest', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -85,7 +85,7 @@ const ResourceManagement = () => {
         if (!phoneNumber || !availableCount) return;
 
         try {
-            const response = await fetch('http://localhost:5000/api/resources/savehandraise', {
+            const response = await fetch('https://eventmanagement-1-y0a7.onrender.com/api/resources/savehandraise', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
