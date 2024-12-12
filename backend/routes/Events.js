@@ -23,6 +23,7 @@ router.post('/createEvent', async (req, res) => {
     await newEvent.save();
     console.log('Event created successfully:', newEvent);
 
+
     // Fetch user tokens from the database
     const userTokens = await getUserTokens();
     console.log('User tokens fetched:', userTokens);
@@ -118,5 +119,6 @@ router.post('/saveToken', async (req, res) => {
     res.status(500).send('Error saving token');
   }
 });
+
 
 module.exports = router;

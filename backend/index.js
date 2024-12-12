@@ -24,6 +24,7 @@ app.use('/api/events', require('./routes/Events'));
 app.use('/api/feedback', require('./routes/feedbackRouter')); 
 app.use('/api/volunteers', require('./routes/volunteerController')); 
 app.use('/api/images', require('./routes/PromotionRoutes')); // <-- Add the PromotionRoutes here
+app.use('/api/resources', require('./routes/resource'));
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });

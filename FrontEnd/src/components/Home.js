@@ -7,6 +7,7 @@ import VolunteerManagement from './VolunteerManagement';
 import { Button } from 'react-bootstrap';
 import AdminVolunteer from './AdminVolunteer';
 import EventPromotion from './EventPromotion';
+import ResourceManagement from './ResourceManagement';
 
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,16 +34,28 @@ function Home() {
   const handleTabChange = (tab) => {
     if (tab === 'home') {
       setActiveTab('home');
+      if(isOpen){
+        setIsOpen(!isOpen);
+      }
     } else if (tab === 'login' && userData) {
       setShowLogin(false);
       setActiveTab(tab);
+      if(isOpen){
+        setIsOpen(!isOpen);
+      }
     } else if (userData) {
       setShowLogin(false);
       setActiveTab(tab);
+      if(isOpen){
+        setIsOpen(!isOpen);
+      }
     } else {
       // Handle navigation to other tabs when user is not logged in
       setShowLogin(true);
       setActiveTab('login');
+      if(isOpen){
+        setIsOpen(!isOpen);
+      }
     }
   };
 
@@ -188,7 +201,7 @@ function Home() {
               <AdminVolunteer />
             )
           )}
-          {activeTab === 'resource-management' && <p>Manage resources for your events.</p>}
+          {activeTab === 'resource-management' && <ResourceManagement />}
           {activeTab === 'feedback-analytics' && <FeedbackAnalytics />}
         </section>
       </main>

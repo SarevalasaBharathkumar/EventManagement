@@ -13,6 +13,11 @@ function EventPromotion() {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768); // Mobile is less than or equal to 768px
+      const element = document.querySelector('.promotion'); // Replace with your target element
+const parentElement = element.parentElement; // Get parent element
+
+const zIndex = window.getComputedStyle(parentElement).getPropertyValue('z-index');
+console.log(`Parent's z-index: ${zIndex}`);
     };
 
     window.addEventListener('resize', handleResize);
@@ -168,11 +173,11 @@ function EventPromotion() {
   
 
   return (
-    <div className="container mt-4">
+    <div className="promotion mt-4" >
       {eventVolunteerData.map((eventData, index) => (
-        <div key={eventData.id} className="row mb-4">
+        <div key={eventData.id} className="row mb-4" >
           <div className="col-12">
-            <div className="card">
+            <div className="card" >
               <div className="card-body">
                 <h5 className="card-title">{eventData.eventName}</h5>
                 <div className="mb-3">
