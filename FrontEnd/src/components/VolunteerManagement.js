@@ -22,16 +22,21 @@ const VolunteerManagement = ({ userEmail }) => {
       // Check registration status for each event
       const updatedEvents = await Promise.all(
         eventData.map(async (event) => {
-          const registrationStatus = await axios.post('https://eventmanagement-1-y0a7.onrender.com/api/volunteers/checkStatus', {
-            eventId: event._id,
-            email: userData[0],
-            volunteersNeeded: event.volunteersNeeded,
-          });
-          return {
-            ...event,
-            isRegistered: registrationStatus.data.isRegistered,
-            isClosed: registrationStatus.data.isClosed,
-          };
+          try {
+            const registrationStatus = await axios.post('https://eventmanagement-1-y0a7.onrender.com/api/volunteers/checkStatus', {
+              eventId: event._id,
+              email: userData[0],
+              volunteersNeeded: event.volunteersNeeded,
+            });
+            return {
+              ...event,
+              isRegistered: registrationStatus.data.isRegistered,
+              isClosed: registrationStatus.data.isClosed,
+            };
+          } catch (error) {
+            console.error(`Error checking registration status for event ${event._id}:`, error);
+            return { ...event, isRegistered: false, isClosed: false };
+          }
         })
       );
       setEvents(updatedEvents);
@@ -96,7 +101,7 @@ const VolunteerManagement = ({ userEmail }) => {
               <Button
                 variant="primary"
                 onClick={() => handleShowRegisterForm(event)}
-                disabled={registeredEvents.has(selectedEvent?._id) || selectedEvent?.isClosed}
+                disabled={registeredEvents.has(event._id) || event.isClosed}
               >
                 {event.isClosed ? 'Closed' : registeredEvents.has(event._id) ? 'Registered' : 'Register'}
               </Button>
