@@ -16,40 +16,41 @@ const VolunteerManagement = ({ userEmail }) => {
   // Memoize the fetchEvents function using useCallback
   const fetchEvents = useCallback(async () => {
     try {
-      const response = await axios.get('https://eventmanagement-1-y0a7.onrender.com/api/events/getEvents');
-      const eventData = response.data;
+        const response = await axios.get('http://localhost:5000/api/events/getEvents');
+        const eventData = response.data;
 
-      // Check registration status for each event
-      const updatedEvents = await Promise.all(
-        eventData.map(async (event) => {
-          try {
-            const registrationStatus = await axios.post('https://eventmanagement-1-y0a7.onrender.com/api/volunteers/checkStatus', {
-              eventId: event._id,
-              email: userData[0],
-              volunteersNeeded: event.volunteersNeeded,
-            });
-            return {
-              ...event,
-              isRegistered: registrationStatus.data.isRegistered,
-              isClosed: registrationStatus.data.isClosed,
-            };
-          } catch (error) {
-            console.error(`Error checking registration status for event ${event._id}:`, error);
-            return { ...event, isRegistered: false, isClosed: false };
-          }
-        })
-      );
-      setEvents(updatedEvents);
+        const updatedEvents = await Promise.all(
+            eventData.map(async (event) => {
+                try {
+                    const registrationStatus = await axios.post('http://localhost:5000/api/volunteers/checkStatus', {
+                        eventId: event._id,
+                        email: userData[0], // Using logged-in user email
+                    });
 
-      // Update registered events state
-      const registeredEventIds = updatedEvents
-        .filter(event => event.isRegistered)
-        .map(event => event._id);
-      setRegisteredEvents(new Set(registeredEventIds));
+                    return {
+                        ...event,
+                        isRegistered: registrationStatus.data.isRegistered,
+                        isClosed: registrationStatus.data.isClosed,
+                    };
+                } catch (error) {
+                    console.error(`Error checking registration status for event ${event._id}:`, error);
+                    return { ...event, isRegistered: false, isClosed: false };
+                }
+            })
+        );
+
+        setEvents(updatedEvents);
+
+        // Update the list of registered events
+        const registeredEventIds = updatedEvents
+            .filter(event => event.isRegistered)
+            .map(event => event._id);
+        setRegisteredEvents(new Set(registeredEventIds));
     } catch (error) {
-      console.error('Error fetching events:', error);
+        console.error('Error fetching events:', error);
     }
-  }, [userData]); // Include userData as a dependency because fetchEvents uses it
+}, [userData]);
+// Include userData as a dependency because fetchEvents uses it
 
   // Fetch events when the component mounts
   useEffect(() => {
@@ -72,7 +73,7 @@ const VolunteerManagement = ({ userEmail }) => {
         volunteersNeeded: selectedEvent.volunteersNeeded,
         email: userData[0], // Send email from login details
       };
-      const response = await axios.post('https://eventmanagement-1-y0a7.onrender.com/api/volunteers/register', newVolunteer);
+      const response = await axios.post('http://localhost:5000/api/volunteers/register', newVolunteer);
 
       if (response.data.success) {
         setAlertMessage('Registration successful!');

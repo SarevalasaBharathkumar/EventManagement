@@ -28,4 +28,58 @@ router.get('/events', async (req, res) => {
     }
 });
 
+// Check registration status for a specific event and user
+router.post('/checkStatus', async (req, res) => {
+    const { eventId, email } = req.body;
+
+    try {
+        const volunteer = await Volunteer.findOne({ eventId, email });
+
+        if (!volunteer) {
+            return res.json({
+                isRegistered: false,
+                isClosed: false, // Assuming the event is open by default
+            });
+        }
+
+        return res.json({
+            isRegistered: true,
+            isClosed: false, // Add logic to determine if the event is closed if required
+        });
+    } catch (error) {
+        console.error('Error checking registration status:', error);
+        res.status(500).json({ error: 'Failed to check registration status' });
+    }
+});
+
+// register
+router.post('/register', async (req, res) => {
+    const { eventId, name, email, collegeId, phoneNumber, volunteersNeeded } = req.body;
+
+    try {
+        // Check if the user is already registered
+        const existingVolunteer = await Volunteer.findOne({ eventId, email });
+        if (existingVolunteer) {
+            return res.status(400).json({ success: false, message: 'You are already registered for this event.' });
+        }
+
+        // Create a new volunteer
+        const newVolunteer = new Volunteer({
+            eventId,
+            name,
+            email,
+            collegeId,
+            phoneNumber,
+            volunteersNeeded,
+        });
+
+        await newVolunteer.save();
+        res.json({ success: true, message: 'Registration successful!' });
+    } catch (error) {
+        console.error('Error registering volunteer:', error);
+        res.status(500).json({ success: false, message: 'Registration failed. Please try again.' });
+    }
+});
+
+
 module.exports = router;
