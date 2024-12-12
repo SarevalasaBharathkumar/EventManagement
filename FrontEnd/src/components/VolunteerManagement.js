@@ -16,13 +16,13 @@ const VolunteerManagement = ({ userEmail }) => {
   // Memoize the fetchEvents function using useCallback
   const fetchEvents = useCallback(async () => {
     try {
-        const response = await axios.get('http://localhost:5000/api/events/getEvents');
+        const response = await axios.get('https://eventmanagement-1-y0a7.onrender.com/api/events/getEvents');
         const eventData = response.data;
 
         const updatedEvents = await Promise.all(
             eventData.map(async (event) => {
                 try {
-                    const registrationStatus = await axios.post('http://localhost:5000/api/volunteers/checkStatus', {
+                    const registrationStatus = await axios.post('https://eventmanagement-1-y0a7.onrender.com/api/volunteers/checkStatus', {
                         eventId: event._id,
                         email: userData[0], // Using logged-in user email
                     });
@@ -73,7 +73,7 @@ const VolunteerManagement = ({ userEmail }) => {
         volunteersNeeded: selectedEvent.volunteersNeeded,
         email: userData[0], // Send email from login details
       };
-      const response = await axios.post('http://localhost:5000/api/volunteers/register', newVolunteer);
+      const response = await axios.post('https://eventmanagement-1-y0a7.onrender.com/api/volunteers/register', newVolunteer);
 
       if (response.data.success) {
         setAlertMessage('Registration successful!');
