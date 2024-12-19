@@ -8,6 +8,8 @@ import { Button } from 'react-bootstrap';
 import AdminVolunteer from './AdminVolunteer';
 import EventPromotion from './EventPromotion';
 import ResourceManagement from './ResourceManagement';
+import Dashboard from './Dashboard';
+import LandingPage from './LandingPage';
 
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -180,18 +182,23 @@ function Home() {
           <h1> Event Management System</h1>
         </header>
         <section className="content">
-          {activeTab === 'home' && <p>Manage and participate in events seamlessly.</p>}
+          {activeTab === 'home' && <LandingPage/>}
           {activeTab === 'login' && userData && (
-            <div>
-              <p>Name: {userData.name}</p>
-              <p>Email: {userData.email}</p>
-              <p>Mobile Number: {userData.mobileNumber}</p>
-              <p>User Type: {userData.userType}</p>
-              <Button variant="danger" onClick={handleLogout}>Logout</Button>
-            </div>
+           <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '5px', maxWidth: '300px', margin: '0 auto', boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.15)', transition: 'all 0.3s ease' }}>
+           <p style={{ fontSize: '18px', margin: '5px 0' }}>Name: {userData.name}</p>
+           <p style={{ fontSize: '18px', margin: '5px 0' }}>Email: {userData.email}</p>
+           <p style={{ fontSize: '18px', margin: '5px 0' }}>Mobile Number: {userData.mobileNumber}</p>
+           <p style={{ fontSize: '18px', margin: '5px 0' }}>User Type: {userData.userType}</p>
+           <Button variant="danger" onClick={handleLogout} style={{ width: '100%', padding: '12px', borderRadius: '5px', border: 'none', color: '#fff', backgroundColor: '#dc3545', cursor: 'pointer', marginTop: '10px', transition: 'all 0.3s ease' }} 
+                   onMouseOver={e => e.currentTarget.style.backgroundColor = '#c82333'} 
+                   onMouseOut={e => e.currentTarget.style.backgroundColor = '#dc3545'}>
+             Logout
+           </Button>
+         </div>
+         
           )}
           {activeTab === 'login' && !userData && <p>Please login to access more features.</p>}
-          {activeTab === 'dashboard' && <p>View your dashboard and stats here.</p>}
+          {activeTab === 'dashboard' && <Dashboard />}
           {activeTab === 'event-planning' && <EventPlanning />}
           {activeTab === 'event-promotion' && <EventPromotion />}
           {activeTab === 'volunteer-management' && (

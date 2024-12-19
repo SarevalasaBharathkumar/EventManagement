@@ -102,7 +102,7 @@
   }
   
   .nav-item.active {
-    color: #00ff00;
+    color:#007bff;
     border-radius: 4px;
   }
   
@@ -115,11 +115,11 @@
   }
   
   .icon.active {
-    color: #00ff00; /* Neon green color */
+    color: #007bff; /* Neon green color */
     text-shadow: 
-      0 0 5px #00ff00,
-      0 0 10px #00ff00,
-      0 0 15px #00ff00,
+      0 0 5px #007bff,
+      0 0 10px #007bff,
+      0 0 15px #007bff,
   }
   
   .icon.no-glow {

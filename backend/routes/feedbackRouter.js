@@ -66,30 +66,36 @@ router.get('/checkFeedback/:eventId/:email', async (req, res) => {
   }
 });
 
-// Route to analyze feedback for an event
-router.get('/analyzeFeedback/:eventId', async (req, res) => {
-  const { eventId } = req.params;
+router.get('/feedbackData', async (req, res) => {
   try {
-    const feedback = await Feedback.find({ eventId });
-    if(eventId===null){
-      return res.send({ message: 'No feedback found for this event' });
-    }
-    if (!feedback || feedback.length === 0) {
-      return res.status(404).send({ message: 'No feedback found for this event' });
-    }
+    const events = await Event.find(); // Fetch all events
+    console.log("Fetched events:", events); // Debug: Check events fetched
 
-    // Calculate average rating
-    const totalRatings = feedback.reduce((sum, fb) => sum + fb.rating, 0);
-    const averageRating = totalRatings / feedback.length;
+    const feedbackData = await Promise.all(
+      events.map(async (event) => {
+        console.log("Processing event:", event._id, event.name); // Debug
 
-    // Count number of feedback entries
-    const feedbackCount = feedback.length;
+        const feedback = await Feedback.find({ eventId: event._id.toString() });
+        console.log("Feedback for event:", event.name, feedback); // Debug
 
-    res.status(200).send({ averageRating, feedbackCount, feedback });
+        const ratingCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+        feedback.forEach((fb) => {
+          if (fb.rating >= 1 && fb.rating <= 5) {
+            ratingCounts[fb.rating] += 1;
+          }
+        });
+        return { eventId: event._id, eventName: event.eventName, ratingCounts };
+      })
+    );
+
+    console.log("Final feedback data:", feedbackData); // Debug
+    res.status(200).send(feedbackData);
   } catch (error) {
-    console.error('Error analyzing feedback:', error);
+    console.error('Error fetching feedback data:', error);
     res.status(500).send({ message: 'Internal server error' });
   }
 });
+
+
 
 module.exports = router;

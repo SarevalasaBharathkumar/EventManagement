@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import "./ResourceManagement.css"
 const ResourceManagement = () => {
     const [events, setEvents] = useState([]);
     const [requests, setRequests] = useState([]);
@@ -21,11 +21,14 @@ const ResourceManagement = () => {
             if (!requestsRes.ok) throw new Error('Failed to fetch requests');
             if (!handRaisesRes.ok) throw new Error('Failed to fetch hand raises');
 
-            const [eventsData, requestsData, handRaisesData] = await Promise.all([
+            const [eventsDataRaw, requestsData, handRaisesData] = await Promise.all([
                 eventsRes.json(),
                 requestsRes.json(),
                 handRaisesRes.json(),
             ]);
+
+            const currentDate = new Date();
+            const eventsData = eventsDataRaw.filter(event => new Date(event.endDate) >= currentDate);
 
             setEvents(eventsData);
             setRequests(requestsData);

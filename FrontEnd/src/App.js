@@ -17,6 +17,7 @@ import { firebaseConfig } from './firebaseConfig';
 import { sendNativeNotification } from './notificationHelpers';
 import useVisibilityChange from './useVisibilityChange';
 import AdminVolunteer from './components/AdminVolunteer';
+import LandingPage from './components/LandingPage';
 
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
@@ -45,6 +46,8 @@ function App() {
           <Route path="/volunteer-management" element={<AdminVolunteer />} />
           <Route path="/resource-management" element={<ResourceManagement />} />
           <Route path="/feedback-analytics" element={<FeedbackAnalytics />} />
+          <Route path="/feedback-analytics" element={<Dashboard />} />
+          <Route path="/feedback-analytics" element={<LandingPage />} />
         </Routes>
       </div>
     </Router>

@@ -1,8 +1,3 @@
-/* Custom CSS to make columns fit content */
-.table td.fit, 
-.table th.fit {
-   white-space: nowrap;  /* Prevent text from wrapping */
-   width: 1%;            /* Allow the column to shrink to the content's size */
-   text-overflow: ellipsis;  /* Add ellipsis when content overflows */
-   padding: 5px 10px;    /* Add padding to make it more readable */
+td {
+   align-content: center;
 }

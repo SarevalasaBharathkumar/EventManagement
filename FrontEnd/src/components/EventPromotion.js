@@ -8,16 +8,17 @@ function EventPromotion() {
   const [previewImages, setPreviewImages] = useState({});
   const [uploadedImages, setUploadedImages] = useState({});
   const [isMobile, setIsMobile] = useState(false); // Track if it's mobile or not
+  const [userData, setUserData] = useState(null);
 
   // Detect if the user is on mobile or desktop based on screen width
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768); // Mobile is less than or equal to 768px
       const element = document.querySelector('.promotion'); // Replace with your target element
-const parentElement = element.parentElement; // Get parent element
+      const parentElement = element.parentElement; // Get parent element
 
-const zIndex = window.getComputedStyle(parentElement).getPropertyValue('z-index');
-console.log(`Parent's z-index: ${zIndex}`);
+      const zIndex = window.getComputedStyle(parentElement).getPropertyValue('z-index');
+      console.log(`Parent's z-index: ${zIndex}`);
     };
 
     window.addEventListener('resize', handleResize);
@@ -28,6 +29,12 @@ console.log(`Parent's z-index: ${zIndex}`);
 
   // Fetch event data and previously uploaded images
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('userData'));
+    if (user) {
+      setUserData({
+        userType: user[2], // left to update later
+      });
+    }
     fetch('https://eventmanagement-1-y0a7.onrender.com/api/volunteers/events')
       .then((response) => {
         if (!response.ok) {
@@ -148,7 +155,7 @@ console.log(`Parent's z-index: ${zIndex}`);
         document.body.appendChild(a); // Append to body for the click event
         a.click(); // Trigger download
         document.body.removeChild(a); // Clean up
-  
+
         // Since download is immediate, resolve the promise
         resolve();
       } catch (error) {
@@ -156,12 +163,12 @@ console.log(`Parent's z-index: ${zIndex}`);
       }
     });
   };
-  
+
   const handleInstagram = async (imageUrl) => {
     try {
       // Wait for the download to complete
       await handleDownload(imageUrl);
-  
+
       // After download, open Instagram's story camera page
       const instagramUrl = `intent://story-camera#Intent;package=com.instagram.android;scheme=instagram;end`;
       window.location.href = instagramUrl;
@@ -170,7 +177,7 @@ console.log(`Parent's z-index: ${zIndex}`);
       alert('An error occurred while downloading the image.');
     }
   };
-  
+
 
   return (
     <div className="promotion mt-4" >
@@ -180,18 +187,21 @@ console.log(`Parent's z-index: ${zIndex}`);
             <div className="card" >
               <div className="card-body">
                 <h5 className="card-title">{eventData.eventName}</h5>
-                <div className="mb-3">
-                  <label htmlFor={`fileInput-${eventData.id}`} className="form-label">
-                    Upload Images
-                  </label>
-                  <input
-                    type="file"
-                    id={`fileInput-${eventData.id}`}
-                    className="form-control"
-                    multiple
-                    onChange={(event) => handleFileChange(event, eventData.id)}
-                  />
-                </div>
+                {userData.userType !== "student" && (
+                  <div className="mb-3">
+                    <label htmlFor={`fileInput-${eventData.id}`} className="form-label">
+                      Upload Images
+                    </label>
+                    <input
+                      type="file"
+                      id={`fileInput-${eventData.id}`}
+                      className="form-control"
+                      multiple
+                      onChange={(event) => handleFileChange(event, eventData.id)}
+                    />
+                  </div>
+                )}
+
 
                 {/* Display image previews */}
                 <div className="row mt-3">
@@ -222,12 +232,14 @@ console.log(`Parent's z-index: ${zIndex}`);
                     ))}
                 </div>
 
-                <button
-                  className="btn btn-primary mt-2"
-                  onClick={() => handleUpload(eventData.id)}
-                >
-                  Upload
-                </button>
+                {userData.userType !== "student" && (
+                  <button
+                    className="btn btn-primary mt-2"
+                    onClick={() => handleUpload(eventData.id)}
+                  >
+                    Upload
+                  </button>
+                )}
 
                 {/* Display previously uploaded images */}
                 <div className="row mt-3">
