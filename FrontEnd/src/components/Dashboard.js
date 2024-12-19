@@ -13,7 +13,7 @@ function Dashboard() {
     // Fetch feedback data for all events
     async function fetchFeedback() {
       try {
-        const response = await axios.get('http://localhost:5000/api/feedback/feedbackData'); // Adjust endpoint as needed
+        const response = await axios.get('https://eventmanagement-1-y0a7.onrender.com/api/feedback/feedbackData'); // Adjust endpoint as needed
         console.log(response.data);
         setEventFeedback(response.data);
       } catch (error) {
